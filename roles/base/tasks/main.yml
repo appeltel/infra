@@ -1,0 +1,11 @@
+---
+# Base setup for all nodes
+#
+# All node to node communication is to be encrypted and authenticated,
+# so everything needs to be able to get certs with letsencrypt
+# TODO: make that happen.
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+    update_cache: yes

@@ -4,4 +4,5 @@
   remote_user: root
   hosts: dbservers
   roles:
+    - base
     - dbservers

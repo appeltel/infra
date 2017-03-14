@@ -1,10 +1,6 @@
 ---
 # This playbook installs redis
 
-- name: Update all packages to the latest version
-  apt:
-    upgrade: dist
-    update_cache: yes
 - name: Ensure redis is the latest version
   apt:
     name: redis-server
