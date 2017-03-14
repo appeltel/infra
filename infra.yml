@@ -1,0 +1,7 @@
+---
+
+- name: configure and deploy the databases
+  remote_user: root
+  hosts: dbservers
+  roles:
+    - dbservers

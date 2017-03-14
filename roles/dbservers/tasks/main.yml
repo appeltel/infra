@@ -1,0 +1,23 @@
+---
+# This playbook installs redis
+
+- name: Update all packages to the latest version
+  apt:
+    upgrade: dist
+    update_cache: yes
+- name: Ensure redis is the latest version
+  apt:
+    name: redis-server
+    state: present
+- name: Ensure redis is running
+  service:
+    name: redis-server
+    state: started
+- name: Render redis configuration file
+  template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart redis-server
