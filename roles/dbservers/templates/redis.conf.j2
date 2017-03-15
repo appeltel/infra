@@ -37,7 +37,7 @@ slave-priority 100
 
 ################################## SECURITY ###################################
 
-requirepass foobared
+requirepass {{ secrets.redis.password }}
 
 ################################### LIMITS ####################################
 

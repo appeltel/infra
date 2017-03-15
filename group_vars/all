@@ -1,0 +1,6 @@
+# global variable file for my little cloud infrastructure
+
+secrets_dir: "/Users/eric/.secrets"
+
+secrets_file: "{{secrets_dir}}/secrets.yml"
+internal_certificate_file: "{{secrets_dir}}/..."

@@ -1,6 +1,10 @@
 ---
 # This playbook installs redis
 
+- name: Include secret vars
+  include_vars:
+    file: "{{secrets_file}}"
+    name: secrets
 - name: Ensure redis is the latest version
   apt:
     name: redis-server
