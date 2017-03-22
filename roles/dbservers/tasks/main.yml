@@ -1,6 +1,8 @@
 ---
 # This playbook installs redis
 
+- include: stunnel.yml
+
 - name: Include secret vars
   include_vars:
     file: "{{secrets_file}}"

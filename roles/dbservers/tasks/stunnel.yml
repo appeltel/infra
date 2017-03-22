@@ -1,0 +1,29 @@
+---
+
+# Install and configure stunnel to serve
+# redis over port 6380 using a self-signed cert
+
+- name: Ensure stunnel is the latest version
+  apt:
+    name: stunnel4
+    state: present
+- name: Ensure stunnel is running
+  service:
+    name: stunnel4
+    state: started
+- name: Render stunnel4 config
+  template:
+    src: stunnel4.j2
+    dest: /etc/default/stunnel
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart stunnel4
+- name: Render stunnel-redis configuration file
+  template:
+    src: redis-stunnel.conf.j2
+    dest: /etc/stunnel/stunnel-redis.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart stunnel4

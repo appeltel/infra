@@ -3,4 +3,4 @@
 secrets_dir: "/Users/eric/.secrets"
 
 secrets_file: "{{secrets_dir}}/secrets.yml"
-internal_certificate_file: "{{secrets_dir}}/..."
+internal_certificate_file: "{{secrets_dir}}/private.pem"

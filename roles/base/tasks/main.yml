@@ -10,3 +10,18 @@
   group:
     name: selfcert
     state: present
+- name: Create /etc/selfcert directory and set permissions
+  file:
+    path: /etc/selfcert
+    state: directory
+    mode: 750
+    owner: root
+    group: selfcert
+- name: Copy the self-signed certificate
+  copy:
+    src: '{{ internal_certificate_file }}'
+    dest: /etc/selfcert/private.pem
+    owner: root
+    group: selfcert
+    mode: 0640
+    

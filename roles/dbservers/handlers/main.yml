@@ -2,3 +2,6 @@
 
 - name: restart redis-server
   service: name=redis-server state=restarted
+
+- name: restart stunnel4
+  service: name=stunnel4 state=restarted
