@@ -14,7 +14,7 @@
 - name: Render stunnel4 config
   template:
     src: stunnel4.j2
-    dest: /etc/default/stunnel
+    dest: /etc/default/stunnel4
     owner: root
     group: root
     mode: 0644
