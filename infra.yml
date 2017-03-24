@@ -6,3 +6,10 @@
   roles:
     - base
     - dbservers
+
+- name: configure and deploy the webservers
+  remote_user: root
+  hosts: webservers
+  roles:
+    - base
+    - webservers

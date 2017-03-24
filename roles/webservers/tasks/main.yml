@@ -1,0 +1,15 @@
+---
+# This playbook installs nginx and the website
+
+- name: Include secret vars
+  include_vars:
+    file: "{{secrets_file}}"
+    name: secrets
+- name: Ensure nginx is the latest version
+  apt:
+    name: nginx
+    state: present
+- name: Ensure nginx is running
+  service:
+    name: nginx
+    state: started

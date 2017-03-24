@@ -1,7 +1,15 @@
 [dbservers]
 db1.ericappelt.com
 
+[webservers]
+web1.ericappelt.com
+
 [dbservers:vars]
+ansible_user=admin
+ansible_private_key_file=/Users/eric/.ssh/EricAppelt1.pem
+ansible_become=true
+
+[webservers:vars]
 ansible_user=admin
 ansible_private_key_file=/Users/eric/.ssh/EricAppelt1.pem
 ansible_become=true
