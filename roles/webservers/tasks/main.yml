@@ -1,14 +1,55 @@
 ---
-# This playbook installs nginx and the website
+# This playbook installs nginx and the configured websites
+
+- name: Ensure git is installed and the latest version
+  apt:
+    name: git
+    state: present
 
 - name: Include secret vars
   include_vars:
     file: "{{secrets_file}}"
     name: secrets
+
+- name: Include enabled website playbooks
+  include: "{{ item }}.yml"
+  with_items: "{{ enabled_sites }}"
+  
 - name: Ensure nginx is the latest version
   apt:
     name: nginx
     state: present
+
+- name: Render nginx site configurations
+  template:
+    src: "{{ item }}.j2"
+    dest: "/etc/nginx/sites-available/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart nginx
+  with_items: "{{ enabled_sites }}"
+- name: Add enabled sites
+  file:
+    src: "/etc/nginx/sites-available/{{ item }}"
+    dest: "/etc/nginx/sites-enabled/{{ item }}"
+    owner: root
+    group: root
+    state: link
+  notify: restart nginx
+  with_items: "{{ enabled_sites }}"
+
+- name: Catalog current enabled sites
+  shell: ls -1 /etc/nginx/sites-enabled
+  register: enabled_contents
+
+- name: Remove sites not enabled
+  file: 
+    path: "/etc/nginx/sites-enabled/{{ item }}"
+    state: absent
+  with_items: "{{ enabled_contents.stdout_lines }}"
+  when: item not in {{ enabled_sites }}
+
 - name: Ensure nginx is running
   service:
     name: nginx

@@ -1,0 +1,7 @@
+---
+# Render the ericappelt website from the repo
+
+- name: Render the ericappelt website from git
+  git:
+    repo: https://github.com/appeltel/website-ericappelt.git
+    dest: /var/www/website-ericappelt

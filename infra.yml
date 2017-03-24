@@ -13,3 +13,5 @@
   roles:
     - base
     - webservers
+  vars:
+    enabled_sites: [ 'ericappelt' ]
