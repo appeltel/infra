@@ -6,4 +6,4 @@ secrets_file: "{{secrets_dir}}/secrets.yml"
 internal_certificate_file: "{{secrets_dir}}/private.pem"
 
 default_python: 3.6.1
-
+default_python_packages: ['pip', 'virtualenv']
