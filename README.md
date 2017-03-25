@@ -27,4 +27,4 @@ personal website. Things I hope to accomplish here:
   `.secrets` directory.
 - Set up required nodes in EC2, setup DNS to point at the nodes, see
   `hosts` for expected inventory
-- Run `ansible-playbook -i hosts infra.yml
+- Run `ansible-playbook -i hosts infra.yml`
