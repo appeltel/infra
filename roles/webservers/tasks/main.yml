@@ -42,6 +42,7 @@
 - name: Catalog current enabled sites
   shell: ls -1 /etc/nginx/sites-enabled
   register: enabled_contents
+  changed_when: false
 
 - name: Remove sites not enabled
   file: 

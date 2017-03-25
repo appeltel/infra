@@ -4,3 +4,6 @@ secrets_dir: "/Users/eric/.secrets"
 
 secrets_file: "{{secrets_dir}}/secrets.yml"
 internal_certificate_file: "{{secrets_dir}}/private.pem"
+
+default_python: 3.6.1
+

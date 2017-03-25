@@ -12,6 +12,7 @@
   hosts: webservers
   roles:
     - base
+    - pyenv
     - webservers
   vars:
     enabled_sites: [ 'ericappelt' ]
