@@ -1,0 +1,42 @@
+---
+# Set up the animals webservice
+
+- name: Setup the animals user
+  user:
+    name: animals
+    groups: selfcert
+    home: /opt/animals
+    shell: /usr/sbin/nologin
+    system: yes
+
+- name: Check for venv with correct python version
+  shell: |
+    if [ -d "/opt/animals/venv" ]; then
+      . /opt/animals/venv/bin/activate
+      echo $(python --version | awk '{print $2}')
+    else
+      echo "None"
+    fi
+  register: venv_python
+  become_user: animals
+  changed_when: false
+
+- name: Install virtual environment
+  shell: |
+    if [ -d "/opt/animals/venv" ]; then
+      rm -rf /opt/animals/venv
+    fi
+    export PYENV_ROOT="/usr/local/pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    pyenv shell {{ default_python }}
+    virtualenv /opt/animals/venv
+  become_user: animals
+  when: (default_python != venv_python.stdout)
+
+- name: Install webservice-animals into venv
+  pip:
+    name: "https://github.com/appeltel/webservice-animals/releases/download/0.0.1a0/AnimalsAPI-0.0.1a0.tar.gz"
+    virtualenv: /opt/animals/venv
+    virtualenv_command: /usr/local/pyenv/versions/{{ default_python }}/bin/virtualenv
+  become_user: animals

@@ -55,3 +55,5 @@
   service:
     name: nginx
     state: started
+
+- include: animals.yml
