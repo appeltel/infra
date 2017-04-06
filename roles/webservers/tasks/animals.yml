@@ -9,6 +9,14 @@
     shell: /usr/sbin/nologin
     system: yes
 
+- name: Render animals.conf
+  template:
+    src: animals.conf.j2
+    dest: /opt/animals/animals.conf
+    owner: animals
+    group: animals
+    mode: 0600
+
 - name: Check for venv with correct python version
   shell: |
     if [ -d "/opt/animals/venv" ]; then
@@ -40,3 +48,17 @@
     virtualenv: /opt/animals/venv
     virtualenv_command: /usr/local/pyenv/versions/{{ default_python }}/bin/virtualenv
   become_user: animals
+
+- name: Setup systemd animals script
+  template:
+    src: animals.service.j2
+    dest: /etc/systemd/system/animals.service
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Enable and start animals service
+  systemd:
+    name: animals
+    enabled: yes
+    state: started

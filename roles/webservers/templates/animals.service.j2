@@ -1,0 +1,11 @@
+[Unit]
+Description=The Animals API
+
+[Service]
+ExecStart=/opt/animals/venv/bin/animals -c /opt/animals/animals.conf
+Type=simple
+User=animals
+Group=animals
+
+[Install]
+WantedBy=multi-user.target

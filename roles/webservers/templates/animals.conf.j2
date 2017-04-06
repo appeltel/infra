@@ -1,0 +1,8 @@
+[redis]
+host = db1.ericappelt.com
+port = 6380
+minsize = 1
+maxsize = 5
+password = {{ secrets.redis.password }}
+use_ssl = true
+ssl_cert = /etc/selfcert/private.pem
