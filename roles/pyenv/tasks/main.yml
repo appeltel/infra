@@ -18,6 +18,11 @@
        - libncursesw5-dev
        - xz-utils
 
+- name: Ensure git is installed and the latest version
+  apt:
+    name: git
+    state: present
+
 - name: Install pyenv repository
   git:
     repo: 'https://github.com/pyenv/pyenv.git'
