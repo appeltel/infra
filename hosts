@@ -3,6 +3,7 @@ db1.ericappelt.com
 
 [webservers]
 web1.ericappelt.com
+web2.ericappelt.com
 
 [dbservers:vars]
 ansible_user=admin
