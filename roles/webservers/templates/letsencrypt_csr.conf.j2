@@ -1,0 +1,19 @@
+[ req ]
+distinguished_name      = req_distinguished_name
+req_extensions          = v3_req
+ 
+[ req_distinguished_name ]
+countryName             = "US"
+stateOrProvinceName     = "Tennessee"
+localityName            = "Nashville
+ 
+commonName              = {{ item.value.common_name }}
+emailAddress            = "eric.appelt@gmail.com"
+ 
+[ v3_req ]
+subjectAltName = @alt_names
+ 
+[alt_names]
+{% for san in item.value.domains -%} 
+DNS.{{ loop.index }} = {{ san }}
+{% endfor %}

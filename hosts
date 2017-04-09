@@ -5,6 +5,9 @@ db1.ericappelt.com
 web1.ericappelt.com
 web2.ericappelt.com
 
+[webservers-leader]
+web1.ericappelt.com
+
 [dbservers:vars]
 ansible_user=admin
 ansible_private_key_file=/Users/eric/.ssh/EricAppelt1.pem

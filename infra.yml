@@ -15,4 +15,8 @@
     - pyenv
     - webservers
   vars:
-    enabled_sites: [ 'ericappelt' ]
+    enabled_sites:
+      ericappelt:
+        common_name: 'ericappelt.com'
+        domains: ['ericappelt.com', 'www.ericappelt.com']
+        location_services: ['animals']

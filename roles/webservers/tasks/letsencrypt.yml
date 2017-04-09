@@ -1,0 +1,19 @@
+---
+# Under development - doesn't make actual certs yet
+# just text files which will be replaced by real certs
+
+- name: Create letsencrypt directory tree
+  file:
+    path: /etc/letsencrypt/{{ item.0 }}/{{ item.1 }}
+    state: directory
+  with_nested:
+    - ['archive', 'live']
+    - "{{ enabled_sites|list }}" 
+
+- name: Render the csr templates for all sites (leader only)
+  template:
+    src: letsencrypt_csr.conf.j2
+    dest: /etc/letsencrypt/{{ item.key }}.csr.conf
+    mode: '0600'
+  with_dict: "{{ enabled_sites }}"
+  when: "'webservers-leader' in group_names"
