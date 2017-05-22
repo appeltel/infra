@@ -5,5 +5,8 @@ secrets_dir: "/Users/eric/.secrets"
 secrets_file: "{{secrets_dir}}/secrets.yml"
 internal_certificate_file: "{{secrets_dir}}/private.pem"
 
+webservers_private_key: "{{secrets_dir}}/webservers.pem"
+webservers_public_key: "{{secrets_dir}}/webservers_public"
+
 default_python: 3.6.1
 default_python_packages: ['pip', 'virtualenv']

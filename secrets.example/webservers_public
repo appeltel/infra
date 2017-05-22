@@ -1,0 +1,4 @@
+After generating webservers.pem, run:
+
+openssl rsa -in webservers.pem -outform PEM -pubout -out webservers_public.pem
+ssh-keygen -f webservers_public.pem -i -m PKCS8 > webservers_public

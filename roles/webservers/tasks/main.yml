@@ -14,7 +14,7 @@
 - name: Include enabled website playbooks
   include: "{{ item }}.yml"
   with_items: "{{ enabled_sites|list }}"
-  
+
 - name: Ensure nginx is the latest version
   apt:
     name: nginx

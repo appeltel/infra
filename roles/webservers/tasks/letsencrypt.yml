@@ -2,6 +2,20 @@
 # Under development - doesn't make actual certs yet
 # just text files which will be replaced by real certs
 
+- name: Render the webservers key
+  copy:
+    src: "{{ webservers_private_key }}"
+    dest: /home/{{ ansible_user }}/.ssh/webservers.pem
+    mode: 0600
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Add webservers to authorized_keys
+  authorized_key:
+    user: "{{ ansible_user }}"
+    state: present
+    key: "{{ lookup('file', webservers_public_key) }}"
+
 - name: Create letsencrypt directory tree
   file:
     path: /etc/letsencrypt/{{ item.0 }}/{{ item.1 }}
@@ -17,3 +31,15 @@
     mode: '0600'
   with_dict: "{{ enabled_sites }}"
   when: "'webservers-leader' in group_names"
+
+- name: Synchronize letsencrypt directory to followers
+  shell: >
+    rsync --delay-updates -F --compress --archive
+    --rsync-path='sudo rsync' 
+    --rsh='ssh -i /home/{{ ansible_user }}/.ssh/webservers.pem -S none -o StrictHostKeyChecking=no'
+    --out-format='<<CHANGED>>%i %n%L'
+    /etc/letsencrypt
+    {{ ansible_user}}@{{ inventory_hostname }}:/etc
+  become: true
+  delegate_to: "{{ groups['webservers-leader'][0] }}"
+  when: "'webservers-leader' not in group_names"
