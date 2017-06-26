@@ -6,6 +6,15 @@ Currently it consists of a few EC2 t2.nano nodes running debian.
 The inventory is at present static and requires manual spinup of
 the nodes and manual DNS setup.
 
+**DISCLAIMER!!!**
+
+Under normal circumstances I would consider it a very bad idea to
+make a repository such as this public, as it provides a detailed
+blueprint for hackers to attack one's services. However, this
+infrastructure exists only for personal demonstration and learning
+purposes, contains no sensitive information, and is of no
+commercial value.
+
 ## Why
 
 I manage a tiny personal cloud infrastructure as a learning and
