@@ -3,7 +3,6 @@ db1.ericappelt.com
 
 [webservers]
 web1.ericappelt.com
-web2.ericappelt.com
 
 [webservers-leader]
 web1.ericappelt.com
