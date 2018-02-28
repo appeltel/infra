@@ -26,12 +26,20 @@
     repo: 'https://github.com/rbenv/rbenv.git'
     dest: /usr/local/rbenv
 
+- name: Create rbenv plugins directory
+  file: path=/usr/local/rbenv/plugins state=directory
+
+- name: Install ruby-build plugin
+  git:
+    repo: 'https://github.com/rbenv/ruby-build.git'
+    dest: /usr/local/rbenv/plugins/ruby-build
+
 - name: Check for the default ruby
   shell: |
     export RBENV_ROOT="/usr/local/rbenv"
     export PATH="$RBENV_ROOT/bin:$PATH"
     eval "$(rbenv init -)"
-    pyenv versions | awk '{print $1}'
+    rbenv versions | awk '{print $1}'
   register: rbenv_installed
   changed_when: false
 

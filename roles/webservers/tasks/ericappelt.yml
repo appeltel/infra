@@ -1,7 +1,16 @@
 ---
 # Render the ericappelt website from the repo
 
-- name: Render the ericappelt website from git
+- name: Clone the ericappelt website source from git
   git:
     repo: https://github.com/appeltel/website-ericappelt.git
     dest: /var/www/website-ericappelt
+
+- name: Render the ericappelt website with jekyll
+  shell: |
+    export RBENV_ROOT="/usr/local/rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    export SITE_BASE=/var/www/website-ericappelt
+    eval "$(rbenv init -)"
+    rbenv shell {{ default_ruby }}
+    jekyll build --source $SITE_BASE --destination $SITE_BASE/html
