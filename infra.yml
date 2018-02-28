@@ -13,6 +13,7 @@
   roles:
     - base
     - pyenv
+    - rbenv
     - webservers
   vars:
     enabled_sites:

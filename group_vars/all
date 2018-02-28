@@ -10,3 +10,6 @@ webservers_public_key: "{{secrets_dir}}/webservers_public"
 
 default_python: 3.6.1
 default_python_packages: ['pip', 'virtualenv']
+
+default_ruby: 2.4.3
+default_ruby_packages: ['bundler', 'jekyll']

@@ -1,0 +1,64 @@
+---
+# Install rbenv and the default ruby version
+
+- name: Install ruby build prerequisites
+  apt: name={{item}} state=installed
+  with_items:
+       - autoconf
+       - bison
+       - build-essential
+       - libssl-dev
+       - libyaml-dev
+       - libreadline6-dev
+       - zlib1g-dev 
+       - libncurses5-dev
+       - libffi-dev
+       - libgdbm3
+       - libgdbm-dev
+
+- name: Ensure git is installed and the latest version
+  apt:
+    name: git
+    state: present
+
+- name: Install rbenv repository
+  git:
+    repo: 'https://github.com/rbenv/rbenv.git'
+    dest: /usr/local/rbenv
+
+- name: Check for the default ruby
+  shell: |
+    export RBENV_ROOT="/usr/local/rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+    pyenv versions | awk '{print $1}'
+  register: rbenv_installed
+  changed_when: false
+
+- name: Install the default ruby
+  shell: |
+    export RBENV_ROOT="/usr/local/rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+    rbenv install {{ default_ruby }}
+  when: "\"{{ default_ruby }}\" not in {{ rbenv_installed.stdout_lines }}"
+
+- name: Check default ruby packages are up to date
+  shell: |
+    export RBENV_ROOT="/usr/local/rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+    rbenv shell {{ default_ruby }}
+    gem list | awk '{print $1}'
+  register: rbenv_packages
+  changed_when: false
+
+- name: Update or install missing or outdated default ruby packages
+  shell: |
+    export RBENV_ROOT="/usr/local/rbenv"
+    export PATH="$RBENV_ROOT/bin:$PATH"
+    eval "$(rbenv init -)"
+    rbenv shell {{ default_ruby }}
+    gem install {{ item }}
+  with_items: "{{ default_ruby_packages }}" 
+  when: item not in {{ rbenv_packages.stdout_lines }}
