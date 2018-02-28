@@ -37,3 +37,7 @@ personal website. Things I hope to accomplish here:
 - Set up required nodes in EC2, setup DNS to point at the nodes, see
   `hosts` for expected inventory
 - Run `ansible-playbook -i hosts infra.yml`
+
+## Other Stuff
+
+- To only update the static jekyll website and save time debugging, run `ansible-playbook -i hosts infra.yml --tags "ericwebsite-update"`

@@ -5,6 +5,9 @@
   git:
     repo: https://github.com/appeltel/website-ericappelt.git
     dest: /var/www/website-ericappelt
+  tags:
+    - ericwebsite-update
+  register: ericwebsite
 
 - name: Render the ericappelt website with jekyll
   shell: |
@@ -14,3 +17,6 @@
     eval "$(rbenv init -)"
     rbenv shell {{ default_ruby }}
     jekyll build --source $SITE_BASE --destination $SITE_BASE/html
+  tags:
+    - ericwebsite-update
+  when: ericwebsite.changed
